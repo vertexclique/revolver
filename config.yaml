@@ -1,0 +1,1 @@
+statsd: "localhost:8125"

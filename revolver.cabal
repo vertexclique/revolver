@@ -1,0 +1,30 @@
+name:                 revolver
+version:              0.1.0.0
+synopsis:             Kafka to Graphite metrics consumer service
+description:          Service that reads messages from different kafka topics and insert related metrics into Graphite
+-- license:
+-- license-file:
+homepage:             
+author:               Mahmut Bulut
+maintainer:           vertexclique@gmail.com
+category:             Revolver
+-- copyright:
+build-type:           Simple
+-- extra-source-files:
+cabal-version:        >=1.10
+
+executable revolver
+  main-is:              Revolver.hs
+  other-modules:        Revolver.Consumer
+                       ,Revolver.StatSender
+                       ,Revolver.ConfigParser
+  -- other-extensions:
+  build-depends:        base >= 4.7 && < 5
+                       ,conduit >= 1.2.9
+                       ,haskakafka >= 1.2.0
+                       ,statsd-client >= 0.3.0.0
+                       ,parseargs >= 0.2.0.8
+                       ,yaml >= 0.8.2.2
+                       ,placeholders
+  hs-source-dirs:       src
+  default-language:     Haskell2010
