@@ -18,6 +18,7 @@ executable revolver
   other-modules:        Revolver.Consumer
                        ,Revolver.StatSender
                        ,Revolver.ConfigParser
+                       ,Revolver.Logger
   -- other-extensions:
   build-depends:        base >= 4.7 && < 5
                        ,conduit >= 1.2.9
@@ -25,6 +26,10 @@ executable revolver
                        ,statsd-client >= 0.3.0.0
                        ,parseargs >= 0.2.0.8
                        ,yaml >= 0.8.2.2
+                       ,fast-logger >= 2.4.10
                        ,placeholders
+                       ,containers
+                       ,unordered-containers
+                       ,time
   hs-source-dirs:       src
   default-language:     Haskell2010

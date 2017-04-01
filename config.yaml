@@ -1,1 +1,5 @@
+mappings:
+  completion_v1: "completion_v1"
+  system: "system"
 statsd: "localhost:8125"
+kafka: "localhost:6001"

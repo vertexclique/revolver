@@ -2,6 +2,7 @@ module Main where
 
 import Revolver.ConfigParser
 import Revolver.Consumer
+import Revolver.Logger
 import Development.Placeholders
 
 helper = "REVOLVER – Kafka to Graphite metrics consumer service\n\
@@ -10,5 +11,6 @@ helper = "REVOLVER – Kafka to Graphite metrics consumer service\n\
 
 main :: IO()
 main = do
-    parseArgsToConfig
+    logger <- createLogger
+    config <- parseConfig logger
     putStrLn helper

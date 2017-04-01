@@ -1,7 +1,13 @@
+{-# LANGUAGE DeriveGeneric #-}
+
 module Revolver.ConfigParser where
 
 import System.Console.ParseArgs
+import GHC.Generics
 import Data.Yaml
+import Data.HashMap.Strict as HashMap
+
+import Revolver.Logger
 
 data Options =
     OptionFlag |
@@ -16,18 +22,26 @@ argd = [ Arg { argIndex = OptionFlagString,
                argDesc = "Config file for Revolver" } ]
 
 data Config = Config {
-    statsd :: String
-}
+    kafka :: String,
+    statsd :: String,
+    mappings :: HashMap String String
+} deriving (Show, Generic)
+
+instance FromJSON Config
 
 parseArguments = parseArgsIO
         (ArgsParseControl (ArgsTrailing "junk") ArgsSoftDash)
         argd
 
-parseArgsToConfig = do
+parseConfig logger = do
     args <- parseArguments
     case getArg args OptionFlagString of
-        Just s -> putStrLn ("saw string " ++ s)
+        Just s -> do
+            logMsg logger ("Loading configuration from \"" ++ s ++ "\"")
+            readConfig s
         Nothing -> return ()
 
-readConfig :: String -> Config
-readConfig c = Config "asd"
+readConfig :: String -> IO ()
+readConfig c = do
+    file <- decodeFile c :: IO (Maybe Config)
+    putStrLn (maybe "Failed to load Config" show file)
